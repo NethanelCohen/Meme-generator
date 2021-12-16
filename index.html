@@ -1,0 +1,141 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="stylesheet" href="css/main.css">
+    <title>Meme-Generator</title>
+</head>
+
+<body onload="onInit()">
+
+    <header class="main-layout">
+        <div class="header-logo">MEME's <span>generator</span></div>
+        <div class="header-navbar">
+            <ul>
+                <li onclick="onInit()"><a href="#">Gallery</a></li>
+                <li onclick="renderSaved()"><a href="#">Memes</a></li>
+                <li><a href="#">About</a></li>
+            </ul>
+        </div>
+    </header>
+
+    <div class="search-query">
+        <div class="filterBy">
+            <label for="topic-meme">Filter by keyword:</label>
+            <input list="topic-meme" id="topic-meme-choose" name="topic-meme" onkeyup="filterGalleryBy(this.value)" />
+
+            <datalist id="topic-meme">
+                <option value="politic">
+                <option value="funny">
+                <option value="cute">
+                <option value="dog">
+                <option value="baby">
+                <option value="sleep">
+                <option value="cat">
+                <option value="boy">
+                <option value="child">
+                <option value="angry">
+                <option value="surprise">
+                <option value="cool">
+                <option value="smile">
+                <option value="laugth">
+                <option value="fight">
+                <option value="akward">
+                <option value="israel">
+                <option value="serious">
+                <option value="movie">
+                <option value="russia">
+                <option value="kids">
+                <option value="cartoon">
+            </datalist>
+        </div>
+    </div>
+
+    <div class="memes-wrapper">
+    </div>
+
+    <div class="meme-generator main-layout-generator close">
+        <button class="toggle-modal" onclick="toggleModal()">⌘</button>
+        <h2>Edit your own meme</h2>
+        <div class="meme-inner">
+            <div class="canvas-container">
+                <canvas id="meme-canvas" width="500px" height="500px" style="background-color: #ffecec; cursor: crosshair; border: 1px solid black; border-radius: 10px;">
+                </canvas>
+            </div>
+            <div class=" meme-setting ">
+                <input id="text-line" type="text" placeholder="add line inner text" onkeyup="onEditLine(this.value)">
+                <div class="line-settings ">
+                    <button onclick="onSwitchLines()"><img src="img/icons/change.png " alt=" "></button>
+                    <button onclick="onAddLine()"><img src="img/icons/more.png " alt=" "></button>
+                    <button onclick="onRemoveLine() "><img src="img/icons/remove.png " alt=" "></button>
+                </div>
+                <div class="text-settings img-setup ">
+                    <button class="arrow" onclick="textLineUp() "><img src="img/icons/up-arrow.png" alt=" "></button>
+                    <button class="arrow" onclick="textLineDown() "><img src="img/icons/down-arrow.png" alt=" "></button>
+                    <button onclick="fontSizeUp() "><img src="img/icons/size-up.png " alt=" "></button>
+                    <button onclick="fontSizeDown() "><img src="img/icons/size-down.png " alt=" "></button>
+                    <button onclick="textAlignLeft() "><img src="img/icons/left-align.png " alt=" "></button>
+                    <button onclick="textAlignCenter() "><img src="img/icons/center-align.png " alt=" "></button>
+                    <button onclick="textAlignRight() "><img src="img/icons/right-align.png " alt=" "></button>
+                </div>
+                <div class="font-settings ">
+                    <select for name="font-family " id="family" onchange="fontFamily(this.value)">
+                        <option value="impact">Impact</option>
+                        <option value="arial">Arial</option>
+                        <option value="calibri">Calibri</option>
+                        <option value="courier">Courier</option>
+                        <option value="italic">Italic</option>
+                        <option value="serif">Serif</option>
+                        <option value="comic">Comic</option>
+                    </select>
+                    <input type="color" id="font-color" onchange="fontStrokeColor(this.value)">
+                    <button><img src="img/icons/stroke-color.png"></button>
+                    <input type="color" id="font-color" onchange="fontColor(this.value)">
+                    <button><img src="img/icons/color-palette.png "></button>
+                </div>
+                <div class="stickers">
+                    <ul class="stickers-bar">
+                        <li><img src="img/stickers/cow.png" alt="" onclick="addSticker(this.src)"></li>
+                        <li><img src="img/stickers/crocodile (1).png" onclick="addSticker(this.src)"></li>
+                        <li><img src="img/stickers/fox.png" onclick="addSticker(this.src)"></li>
+                        <li><img src="img/stickers/giraffe.png" onclick="addSticker(this.src)"></li>
+                        <li><img src="img/stickers/hippopotamus.png" onclick="addSticker(this.src)"></li>
+                        <li><img src="img/stickers/pig.png" onclick="addSticker(this.src)"></li>
+                        <li><img src="img/stickers/sheep.png" onclick="addSticker(this.src)"></li>
+                        <li><img src="img/stickers/tiger.png" onclick="addSticker(this.src)"></li>
+                    </ul>
+                </div>
+                <div class="features">
+                    <a href="#" class="btn" onclick="downloadMeme(this)" download="my-img.png"><img src="img/icons/download.png"></a>
+                    <a href="#" class="btn" onclick="saveMeme(this)"><img src="img/icons/save-meme.png" alt=""></a>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <div class="saved-memes close">
+        <button class="toggle-saved-modal" onclick="toggleSavedModal()">⌘</button>
+        <canvas id="saved-memes" width="500px" height="500px">
+        </canvas>
+        <div class="features">
+            <a href="#" class="btn" onclick="downloadSavedMeme(this)" download="my-img.png"><img src="img/icons/download.png"></a>
+            <a href="#" class="btn" onclick="deleteSavedMeme()"><img src="img/icons/remove.png"></a>
+        </div>
+    </div>
+
+
+    <script src="js/services/local-storage.js"></script>
+    <script src="js/utilities.js"></script>
+    <script src="js/services/gallery-service.js"></script>
+    <script src="js/services/canvas-service.js"></script>
+    <script src="js/gallery-controller.js"></script>
+    <script src="js/canvas-controller.js"></script>
+    <script src="js/saved-controller.js"></script>
+
+
+</body>
+
+</html>
