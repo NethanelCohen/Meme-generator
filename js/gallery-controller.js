@@ -44,4 +44,13 @@ function toggleModal() {
     } else {
         elMemeModal.classList.replace('close', 'open');
     }
+    gMeme.lines[currLineIdx].txt = '';
+    elTextBox.value = '';
+    renderMemes()
 }
+
+
+// function displayText() {
+//     gMeme.lines[currLineIdx].txt = '';
+//     elTextBox.value = '';
+// }

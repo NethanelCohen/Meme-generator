@@ -10,25 +10,22 @@ function renderMemes() {
         selectedImgId: 1,
         selectedLineIdx: 0,
         lines: [{
-                txt: '',
-                size: 40,
-                align: 'left',
-                color: 'white',
-                strokeColor: 'black',
-                font: 'Impact',
-                isFocused: true,
-                movedLine: 0
-            }]
-            // };
-            // gSticker = {
-            //     selectedStickerLineIdx: 0,
-            //     lines: [{
-            //         url: '',
-            //         size: 50,
-            //         isFocused: true,
-            //         movedLine: 0
-            //     }]
-            // };
+            txt: '',
+            size: 40,
+            align: 'left',
+            color: 'white',
+            strokeColor: 'black',
+            font: 'Impact',
+            isFocused: true,
+            movedLine: 0,
+            position: {
+                basicPos: { x: 0, y: 0 },
+                x: 0,
+                y: 0,
+                width: 0,
+                height: 0
+            }
+        }]
     }
     currLineIdx = gMeme.selectedLineIdx;
 }
@@ -41,7 +38,7 @@ function editLine(txt) {
 }
 
 function addLine() {
-    if (elTextBox.value) {
+    if (elTextBox.value || gMeme.lines[currLineIdx].txt) {
         gMeme.lines[currLineIdx].txt = gCurrLineTxt;
         gMeme.lines[currLineIdx].isFocused = false;
         currLineIdx++;
@@ -53,7 +50,14 @@ function addLine() {
             strokeColor: 'black',
             font: 'Impact',
             isFocused: true,
-            movedLine: 0
+            movedLine: 0,
+            position: {
+                basicPos: { x: 0, y: 0 },
+                x: 0,
+                y: 0,
+                width: 0,
+                height: 0
+            }
         })
         gMeme.lines[currLineIdx].isFocused = true;
     }
@@ -79,6 +83,7 @@ function removeLine() {
     } else {
         currLineIdx = 0;
         gMeme.lines[currLineIdx].txt = '';
+        gMeme.lines[currLineIdx].size = 40;
         gMeme.lines[currLineIdx].movedLine = 0;
 
     }
@@ -159,15 +164,29 @@ function _saveMemeToStorage() {
     saveToStorage(STORAGE_KEY, gSavedImg)
 }
 
-// function addSticker(url) {
-//     console.log(url);
-// gSticker.lines[selectedStickerLineIdx].url = url;
-// gSticker.lines.push({
-//     url: '',
-//     size: 50,
-//     isFocused: true,
-//     movedLine: 0
-// });
-// gSticker.selectedStickerLineIdx++;
-// renderCanvas()
-// }
+function addSticker(elLi) {
+    var elSticker = elLi.innerText;
+    gMeme.lines[currLineIdx].txt = elSticker;
+    gMeme.lines[currLineIdx].size = 80;
+    gMeme.lines[currLineIdx].isFocused = false;
+    currLineIdx++;
+    gMeme.lines.push({
+        txt: '',
+        size: 40,
+        align: 'left',
+        color: 'white',
+        strokeColor: 'black',
+        font: 'Impact',
+        isFocused: true,
+        movedLine: 0,
+        position: {
+            basicPos: { x: 0, y: 0 },
+            x: 0,
+            y: 0,
+            width: 0,
+            height: 0
+        }
+    })
+    gMeme.lines[currLineIdx].isFocused = true;
+    addLine();
+}
