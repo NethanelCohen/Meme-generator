@@ -4,6 +4,7 @@ function onInit() {
     renderImgs()
     renderMemes()
     renderCanvas()
+    renderKeyWords()
 }
 
 function renderImgs() {
@@ -21,6 +22,7 @@ function renderImgs() {
     })
     var elImgs = document.querySelector('.memes-wrapper');
     elImgs.innerHTML = strHTMLs;
+    renderKeyWords();
 }
 
 function renderMemeGen(meme) {
@@ -44,13 +46,11 @@ function toggleModal() {
     } else {
         elMemeModal.classList.replace('close', 'open');
     }
-    gMeme.lines[currLineIdx].txt = '';
-    elTextBox.value = '';
+    displayText()
     renderMemes()
 }
 
-
-// function displayText() {
-//     gMeme.lines[currLineIdx].txt = '';
-//     elTextBox.value = '';
-// }
+function displayText() {
+    gMeme.lines[currLineIdx].txt = '';
+    elTextBox.value = '';
+}

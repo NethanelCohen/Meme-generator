@@ -11,7 +11,6 @@ var movedAxisX = 0;
 var movedAxisY = 0;
 
 
-
 function renderCanvas() {
     gCanvas = document.querySelector('#meme-canvas');
     gCtx = gCanvas.getContext('2d');
@@ -73,7 +72,7 @@ function drawText() {
             gCtx.strokeText(line.txt, 60 + line.position.x, 40 + line.position.y);
             gCtx.strokeStyle = "black";
             if (line.isFocused === true && line.txt.length > 0) {
-                gCtx.strokeRect(50 + line.position.x, 10 + line.position.y, 25 * (line.txt.length + 2), 50 + line.size / 2); //line.movedLine
+                gCtx.strokeRect(50 + line.position.x, 10 + line.position.y, 25 * (line.txt.length + 2), 50 + line.size / 2);
             }
             line.position.width = 25 * (line.txt.length + 2);
             line.position.height = 50 + line.size / 2;
@@ -153,7 +152,6 @@ function onUp() {
     // currGrabbedElement = -1;
     // renderCanvas();
 }
-
 
 function grabLineIdx(ev) {
     var idx = gMeme.lines.findIndex(function(line) {

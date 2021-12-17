@@ -1,6 +1,9 @@
+const validKeyWords = ["all", "politic", "funny", "cute", "dog", "baby", "sleep", "cat", "boy", "child", "angry", "surprise", "cool", "smile", "laugth", "fight", "akward", "israel", "serious", "movie", "russia", "kids", "cartoon"]
 const STORAGE_KEY = 'meme_DB';
+const STORAGE_KEYWORDS = 'keywords_DB';
 var gFilterKeyword = 'all';
-var gKewordSearchCountMap = {};
+var gKewordSearchCountMap;
+// var elQuery = document.getElementById('topic-meme-choose');
 
 var gImgs = [{
         id: _makeId(),
@@ -96,6 +99,24 @@ var gImgs = [{
 
 var gSavedImg = [];
 
+function renderKeyWords() {
+    gKewordSearchCountMap = loadFromStorage(STORAGE_KEYWORDS);
+    if (!gKewordSearchCountMap || gKewordSearchCountMap.length === 0) {
+        gKewordSearchCountMap = [{
+            key: 'all',
+            count: 10
+        }]
+    }
+    var strHTMLs = '<p>';
+    gKewordSearchCountMap.forEach(function(obj) {
+        console.log(obj);
+        return strHTMLs +=
+            `<span id=${obj.key} onclick="filterGalleryBy(this.id)" style="font-size: ${obj.count+15}px; color: ${getRandomColor()}; cursor: pointer; text-align: center">${obj.key} </span>`
+    });
+    strHTMLs += '</p>';
+    var elKeywords = document.querySelector('.keywords-query');
+    elKeywords.innerHTML = strHTMLs;
+}
 
 function filterGalleryBy(filter) {
     if (filter === '') {
@@ -103,5 +124,25 @@ function filterGalleryBy(filter) {
     } else {
         gFilterKeyword = filter;
     }
+    if (validKeyWords.includes(filter) && filter !== 'all') {
+        var keyIdx = validKeyWords.indexOf(filter);
+        var word = validKeyWords[keyIdx];
+
+        var checkIfExist = gKewordSearchCountMap.findIndex(function(obj) {
+            return obj.key === word;
+        })
+        if (checkIfExist == -1) {
+            gKewordSearchCountMap.push({
+                key: word,
+                count: 1
+            });
+        } else gKewordSearchCountMap[checkIfExist].count += 1;
+        // elQuery.value = '';
+    }
+    _saveKeyWordsToStorage()
     renderImgs();
+}
+
+function _saveKeyWordsToStorage() {
+    saveToStorage(STORAGE_KEYWORDS, gKewordSearchCountMap)
 }

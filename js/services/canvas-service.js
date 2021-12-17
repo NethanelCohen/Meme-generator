@@ -17,7 +17,6 @@ function renderMemes() {
             strokeColor: 'black',
             font: 'Impact',
             isFocused: true,
-            movedLine: 0,
             position: {
                 basicPos: { x: 0, y: 0 },
                 x: 0,
@@ -38,7 +37,7 @@ function editLine(txt) {
 }
 
 function addLine() {
-    if (elTextBox.value || gMeme.lines[currLineIdx].txt) {
+    if (elTextBox.value || gCurrLineTxt !== '') {
         gMeme.lines[currLineIdx].txt = gCurrLineTxt;
         gMeme.lines[currLineIdx].isFocused = false;
         currLineIdx++;
@@ -50,7 +49,6 @@ function addLine() {
             strokeColor: 'black',
             font: 'Impact',
             isFocused: true,
-            movedLine: 0,
             position: {
                 basicPos: { x: 0, y: 0 },
                 x: 0,
@@ -84,27 +82,25 @@ function removeLine() {
         currLineIdx = 0;
         gMeme.lines[currLineIdx].txt = '';
         gMeme.lines[currLineIdx].size = 40;
-        gMeme.lines[currLineIdx].movedLine = 0;
-
     }
     gMeme.lines[currLineIdx].isFocused = false;
 }
 
-function textLineUp() {
-    var elFocus = gMeme.lines.find(function(line) {
-        return line.isFocused === true;
-    })
-    elFocus.movedLine -= 10;
-    renderCanvas();
-}
+// function textLineUp() {
+//     var elFocus = gMeme.lines.find(function(line) {
+//         return line.isFocused === true;
+//     })
+//     elFocus.movedLine -= 10;
+//     renderCanvas();
+// }
 
-function textLineDown() {
-    var elFocus = gMeme.lines.find(function(line) {
-        return line.isFocused === true;
-    })
-    elFocus.movedLine += 10;
-    renderCanvas();
-}
+// function textLineDown() {
+//     var elFocus = gMeme.lines.find(function(line) {
+//         return line.isFocused === true;
+//     })
+//     elFocus.movedLine += 10;
+//     renderCanvas();
+// }
 
 function fontSizeUp() {
     gMeme.lines[currLineIdx].size += 2;
@@ -152,12 +148,16 @@ function downloadMeme(elLink) {
 }
 
 function saveMeme() {
+    var clean = gMeme.lines.forEach(line => {
+        return line.isFocused = false;
+    })
     onAddLine()
     var canvasURL = gCanvas.toDataURL();
     gSavedImg.push({ id: _makeId(), url: canvasURL });
     _saveMemeToStorage()
     renderMemes()
     renderCanvas()
+    toggleModal()
 }
 
 function _saveMemeToStorage() {
@@ -166,27 +166,8 @@ function _saveMemeToStorage() {
 
 function addSticker(elLi) {
     var elSticker = elLi.innerText;
-    gMeme.lines[currLineIdx].txt = elSticker;
+    gCurrLineTxt = elSticker;
     gMeme.lines[currLineIdx].size = 80;
-    gMeme.lines[currLineIdx].isFocused = false;
-    currLineIdx++;
-    gMeme.lines.push({
-        txt: '',
-        size: 40,
-        align: 'left',
-        color: 'white',
-        strokeColor: 'black',
-        font: 'Impact',
-        isFocused: true,
-        movedLine: 0,
-        position: {
-            basicPos: { x: 0, y: 0 },
-            x: 0,
-            y: 0,
-            width: 0,
-            height: 0
-        }
-    })
-    gMeme.lines[currLineIdx].isFocused = true;
-    addLine();
+    addLine()
+    renderCanvas();
 }

@@ -15,12 +15,11 @@ function renderSavedCanvas() {
 function renderSaved() {
     if (elMemeModal.classList.contains('open')) toggleModal();
     gSavedImg = loadFromStorage(STORAGE_KEY)
-    var strHTMLs = '';
     if (!gSavedImg || gSavedImg.length === 0) {
         strHTMLs += '<h2 style="text-align: center; box-shadow: 4px 4px 10px 2px; border: 1px solid black;">When you will save a meme - it will appear here.</h2>'
     } else {
+        var strHTMLs = '';
         gSavedImg.forEach(function(img) {
-            // add more info (download + changes)
             return strHTMLs += `
              <div class="meme" id="${img.id}" onclick="renderSavedMeme(this.id)">
              <img src="${img.url}">
