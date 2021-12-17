@@ -3,7 +3,6 @@ const STORAGE_KEY = 'meme_DB';
 const STORAGE_KEYWORDS = 'keywords_DB';
 var gFilterKeyword = 'all';
 var gKewordSearchCountMap;
-// var elQuery = document.getElementById('topic-meme-choose');
 
 var gImgs = [{
         id: _makeId(),
@@ -104,16 +103,16 @@ function renderKeyWords() {
     if (!gKewordSearchCountMap || gKewordSearchCountMap.length === 0) {
         gKewordSearchCountMap = [{
             key: 'all',
-            count: 10
+            count: 20
         }]
     }
-    var strHTMLs = '<p>';
+    var strHTMLs = '<ul>';
     gKewordSearchCountMap.forEach(function(obj) {
         console.log(obj);
         return strHTMLs +=
-            `<span id=${obj.key} onclick="filterGalleryBy(this.id)" style="font-size: ${obj.count+15}px; color: ${getRandomColor()}; cursor: pointer; text-align: center">${obj.key} </span>`
+            `<li id=${obj.key} onclick="filterGalleryBy(this.id)" style="font-size: ${obj.count+30}px; color: ${getRandomColor()}; cursor: pointer; text-align: center">${obj.key} </li>`
     });
-    strHTMLs += '</p>';
+    strHTMLs += '</li>';
     var elKeywords = document.querySelector('.keywords-query');
     elKeywords.innerHTML = strHTMLs;
 }
@@ -137,7 +136,6 @@ function filterGalleryBy(filter) {
                 count: 1
             });
         } else gKewordSearchCountMap[checkIfExist].count += 1;
-        // elQuery.value = '';
     }
     _saveKeyWordsToStorage()
     renderImgs();

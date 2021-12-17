@@ -22,37 +22,40 @@
         </div>
     </header>
 
-    <div class="search-query">
-        <div class="filterBy">
-            <label for="topic-meme">Filter by keyword:</label>
-            <input list="topic-meme" id="topic-meme-choose" name="topic-meme" onkeyup="filterGalleryBy(this.value)" />
+    <div class="filter-by">
+        <label for="topic-meme">Filter by keyword: <br></label>
+        <input list="topic-meme" id="topic-meme-choose" name="topic-meme" onkeyup="filterGalleryBy(this.value)" />
 
-            <datalist id="topic-meme">
-                <option value="politic">
-                <option value="funny">
-                <option value="cute">
-                <option value="dog">
-                <option value="baby">
-                <option value="sleep">
-                <option value="cat">
-                <option value="boy">
-                <option value="child">
-                <option value="angry">
-                <option value="surprise">
-                <option value="cool">
-                <option value="smile">
-                <option value="laugth">
-                <option value="fight">
-                <option value="akward">
-                <option value="israel">
-                <option value="serious">
-                <option value="movie">
-                <option value="russia">
-                <option value="kids">
-                <option value="cartoon">
-            </datalist>
+        <datalist id="topic-meme">
+            <option value="politic">
+            <option value="funny">
+            <option value="cute">
+            <option value="dog">
+            <option value="baby">
+            <option value="sleep">
+            <option value="cat">
+            <option value="boy">
+            <option value="child">
+            <option value="angry">
+            <option value="surprise">
+            <option value="cool">
+            <option value="smile">
+            <option value="laugth">
+            <option value="fight">
+            <option value="akward">
+            <option value="israel">
+            <option value="serious">
+            <option value="movie">
+            <option value="russia">
+            <option value="kids">
+            <option value="cartoon">
+        </datalist>
+        <div class="search-query">
+            <div class="keywords-query">
+            </div>
         </div>
-        <div class="keywords-query">
+        <div class="more-keywords-container ">
+            <button class="toggle-btn" onclick="toggleMoreKeysOpen()"> ▽ </button>
         </div>
     </div>
 
@@ -74,6 +77,10 @@
                     <button onclick="onSwitchLines()"><img src="img/icons/change.png " alt=" "></button>
                     <button onclick="onAddLine()"><img src="img/icons/more.png " alt=" "></button>
                     <button onclick="onRemoveLine() "><img src="img/icons/remove.png " alt=" "></button>
+                </div>
+                <div class="upload">
+                    <button id="upload-photo" onclick="uploadPhotoFromComputer()"><img
+                            src="img/icons/upload-document.png" alt=""></button>
                 </div>
                 <div class="text-settings img-setup ">
                     <!-- <button class="arrow" onclick="textLineUp() "><img src="img/icons/up-arrow.png" alt=" "></button> -->
@@ -112,7 +119,8 @@
                 </div>
                 <div class="features">
                     <a href="#" class="btn" onclick="downloadMeme(this)" download="my-img.png"><img src="img/icons/download.png"></a>
-                    <a href="#" class="btn" onclick="uploadImg()"><img src="img/icons/share-meme.png" alt="">Share on facebook</a>
+                    <a href="#" class="btn" onclick="uploadImg()"><img src="img/icons/share-meme.png" alt="">Share on facebook
+                    </a>
                     <div class="share-container" onclick="uploadImg()">
 
                     </div>
@@ -143,7 +151,6 @@
     <script src="js/gallery-controller.js"></script>
     <script src="js/canvas-controller.js"></script>
     <script src="js/saved-controller.js"></script>
-
 
 </body>
 

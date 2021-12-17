@@ -1,10 +1,12 @@
 var elMemeModal = document.querySelector('.meme-generator');
+var isMoreKeysOpen;
 
 function onInit() {
     renderImgs()
     renderMemes()
     renderCanvas()
     renderKeyWords()
+    isMoreKeysOpen = true;
 }
 
 function renderImgs() {
@@ -40,6 +42,12 @@ function getMemeById(memeId) {
     return meme;
 }
 
+function displayText() {
+    gMeme.lines[currLineIdx].txt = '';
+    elTextBox.value = '';
+}
+
+/* service */
 function toggleModal() {
     if (elMemeModal.classList.contains('open')) {
         elMemeModal.classList.replace('open', 'close');
@@ -50,7 +58,16 @@ function toggleModal() {
     renderMemes()
 }
 
-function displayText() {
-    gMeme.lines[currLineIdx].txt = '';
-    elTextBox.value = '';
+/* service */
+function toggleMoreKeysOpen() {
+    isMoreKeysOpen = !isMoreKeysOpen;
+    var elMore = document.querySelector('.keywords-query');
+    var elBtn = document.querySelector('.toggle-btn');
+    if (isMoreKeysOpen) {
+        elMore.style.height = "150px"
+        elBtn.innerText = '▽'
+    } else {
+        elMore.style.height = "500px";
+        elBtn.innerText = '△'
+    }
 }
