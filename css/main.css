@@ -188,7 +188,7 @@ footer {
 .memes-wrapper {
     display: grid;
     grid-template-columns: repeat(5, 180px);
-    grid-template-rows: repeat(5, 160px);
+    grid-template-rows: 160px;
     gap: 10px;
     justify-content: center;
     align-items: center;
@@ -256,19 +256,21 @@ footer {
 .meme-inner {
     display: flex;
     justify-content: space-between;
-    align-items: flex-start;
+    align-items: center;
+    margin: 10px auto;
 }
 
 .meme-setting {
     width: 600px;
     height: 500px;
     margin-right: 25px;
-    margin-bottom: 25px;
+    margin-bottom: 10px;
     display: flex;
     flex-direction: column;
     background-color: rgba(86, 34, 102, 0.473);
     border: 1px solid black;
     border-radius: 10px;
+    align-items: center;
 }
 
 
@@ -338,11 +340,12 @@ footer {
 }
 
 .font-settings select {
-    width: 300px;
+    width: 250px;
     height: 40px;
     margin: 10px auto;
     font-size: 20px;
     border-radius: 10px;
+    margin-right: 30px;
 }
 
 .font-settings input {
@@ -500,7 +503,7 @@ footer {
     }
     .memes-wrapper {
         grid-template-columns: repeat(4, 190px);
-        grid-template-rows: repeat(5, 170px);
+        grid-template-rows: 170px;
         gap: 10px;
     }
     .meme img {
@@ -652,7 +655,7 @@ footer {
     }
     .memes-wrapper {
         grid-template-columns: repeat(3, 180px);
-        grid-template-rows: repeat(5, 140px);
+        grid-template-rows: 140px;
         gap: 10px;
     }
     .meme img {
