@@ -1,5 +1,5 @@
-var elMemeModal = document.querySelector('.meme-generator');
 var isMoreKeysOpen;
+var elMemeModal = document.querySelector('.meme-generator');
 
 function onInit() {
     renderImgs()
@@ -7,10 +7,16 @@ function onInit() {
     renderCanvas()
     renderKeyWords()
     isMoreKeysOpen = true;
+    if (gUploadedImgSrc) toggleModal();
+    document.querySelector('.filter-by').classList.remove('hide-filter');
+    switchFocus('gallery');
 }
 
 function renderImgs() {
-    var strHTMLs = '';
+    var strHTMLs = `<div class="meme">
+    <input type="file" class="upload">
+    <img id="load-image" src="img/icons/upload.png" width="500" height="500">
+    </div>`;
     var filteredImg = gImgs.filter(function(img) {
         return img.keywords.find(function(keyword) {
             return keyword.includes(gFilterKeyword)
@@ -28,11 +34,19 @@ function renderImgs() {
 }
 
 function renderMemeGen(meme) {
-    gMeme.selectedImgId = meme.id;
-    var currImg = getMemeById(meme.id);
-    gCurrUrl = currImg.url;
-    renderCanvas()
-    toggleModal();
+    // debugger
+    if (gUploadedImgSrc) {
+        gCurrUrl = gUploadedImgSrc.src
+        renderCanvas();
+        toggleModal();
+        return
+    } else {
+        gMeme.selectedImgId = meme.id;
+        var currImg = getMemeById(meme.id);
+        gCurrUrl = currImg.url;
+        renderCanvas();
+        toggleModal();
+    }
 }
 
 function getMemeById(memeId) {
@@ -47,27 +61,12 @@ function displayText() {
     elTextBox.value = '';
 }
 
-/* service */
-function toggleModal() {
-    if (elMemeModal.classList.contains('open')) {
-        elMemeModal.classList.replace('open', 'close');
+function switchFocus(tab) {
+    if (tab === 'gallery') {
+        document.querySelector('.gallery-botton').classList.add('active');
+        document.querySelector('.saved-botton').classList.remove('active');
     } else {
-        elMemeModal.classList.replace('close', 'open');
-    }
-    displayText()
-    renderMemes()
-}
-
-/* service */
-function toggleMoreKeysOpen() {
-    isMoreKeysOpen = !isMoreKeysOpen;
-    var elMore = document.querySelector('.keywords-query');
-    var elBtn = document.querySelector('.toggle-btn');
-    if (isMoreKeysOpen) {
-        elMore.style.height = "150px"
-        elBtn.innerText = '▽'
-    } else {
-        elMore.style.height = "500px";
-        elBtn.innerText = '△'
+        document.querySelector('.gallery-botton').classList.remove('active')
+        document.querySelector('.saved-botton').classList.add('active');
     }
 }

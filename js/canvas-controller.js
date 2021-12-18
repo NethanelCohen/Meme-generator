@@ -1,6 +1,7 @@
-var gCanvas;
-var gCtx;
+var gCanvas = document.querySelector('#meme-canvas');
+var gCtx = gCanvas.getContext('2d');
 var elTextBox = document.querySelector('#text-line');
+var gCurrImg;
 
 /* POSITION EVENTS */
 const gTouchEvs = ['touchstart', 'touchmove', 'touchend'];
@@ -12,8 +13,6 @@ var movedAxisY = 0;
 
 
 function renderCanvas() {
-    gCanvas = document.querySelector('#meme-canvas');
-    gCtx = gCanvas.getContext('2d');
     gCtx.fillStyle = "#ffecec";
     gCtx.clearRect(0, 0, gCanvas.width, gCanvas.height);
     addListeners()
@@ -54,7 +53,13 @@ function onAddSticker(elLi) {
 function drawImg() {
     var img = new Image();
     img.src = gCurrUrl;
-    gCtx.drawImage(img, 0, 0, gCanvas.width, gCanvas.height);
+    gCurrImg = img;
+    if (gUploadedImgSrc) {
+        img.onload = function() {
+            gCtx.drawImage(img, 0, 0, gCanvas.width, gCanvas.height);
+            gUploadedImgSrc = '';
+        }
+    } else gCtx.drawImage(img, 0, 0, gCanvas.width, gCanvas.height);
 }
 
 function drawText() {
@@ -120,10 +125,9 @@ function addTouchListeners() {
 }
 
 function onDown(ev) {
+    ev.preventDefault();
     currPosDown = getEvPos(ev);
-    console.log("currPosDown: ", currPosDown);
     var currLineDownIdx = grabLineIdx(currPosDown)
-    console.log("currLineDownIdx: ", currLineDownIdx);
     if (currLineDownIdx !== -1) {
         gMeme.lines[currLineIdx].isFocused = false;
         currLineIdx = currLineDownIdx;
@@ -135,6 +139,7 @@ function onDown(ev) {
 }
 
 function onMove(ev) {
+    ev.preventDefault()
     if (!isDown) return
     var currMovedPos = getEvPos(ev);
     movedAxisX = currMovedPos.x - currPosDown.x;
@@ -155,7 +160,6 @@ function onUp() {
 
 function grabLineIdx(ev) {
     var idx = gMeme.lines.findIndex(function(line) {
-        // debugger
         return (ev.x > line.position.basicPos.x &&
             ev.x < line.position.width + line.position.basicPos.x &&
             ev.y > line.position.basicPos.y &&

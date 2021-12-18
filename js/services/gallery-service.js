@@ -1,8 +1,22 @@
-const validKeyWords = ["all", "politic", "funny", "cute", "dog", "baby", "sleep", "cat", "boy", "child", "angry", "surprise", "cool", "smile", "laugth", "fight", "akward", "israel", "serious", "movie", "russia", "kids", "cartoon"]
+const validKeyWords = ["all", "politic", "funny", "cute", "dog", "baby", "sleep", "cat", "boy", "child", "angry", "surprise", "cool", "smile", "laugth", "fight", "akward", "israel", "serious", "movie", "russia", "kids", "cartoon"];
+var gUploadedImgSrc = '';
 const STORAGE_KEY = 'meme_DB';
 const STORAGE_KEYWORDS = 'keywords_DB';
 var gFilterKeyword = 'all';
-var gKewordSearchCountMap;
+var gKeywordSearchCountMap;
+
+window.addEventListener('load', function() {
+    document.querySelector('input[type=file]').addEventListener('change', function() {
+        if (this.files[0].type === 'image/png' || this.files[0].type === 'image/jpg') {
+            var img = new Image();
+            img.src = URL.createObjectURL(this.files[0]);
+            gUploadedImgSrc = img;
+            gCurrUrl = gUploadedImgSrc.src;
+            renderCanvas()
+            toggleModal()
+        } else alert('This file is not a png / jpg type!');
+    })
+});
 
 var gImgs = [{
         id: _makeId(),
@@ -99,15 +113,15 @@ var gImgs = [{
 var gSavedImg = [];
 
 function renderKeyWords() {
-    gKewordSearchCountMap = loadFromStorage(STORAGE_KEYWORDS);
-    if (!gKewordSearchCountMap || gKewordSearchCountMap.length === 0) {
-        gKewordSearchCountMap = [{
+    gKeywordSearchCountMap = loadFromStorage(STORAGE_KEYWORDS);
+    if (!gKeywordSearchCountMap || gKeywordSearchCountMap.length === 0) {
+        gKeywordSearchCountMap = [{
             key: 'all',
-            count: 20
+            count: 60
         }]
     }
     var strHTMLs = '<ul>';
-    gKewordSearchCountMap.forEach(function(obj) {
+    gKeywordSearchCountMap.forEach(function(obj) {
         console.log(obj);
         return strHTMLs +=
             `<li id=${obj.key} onclick="filterGalleryBy(this.id)" style="font-size: ${obj.count+30}px; color: ${getRandomColor()}; cursor: pointer; text-align: center">${obj.key} </li>`
@@ -127,20 +141,51 @@ function filterGalleryBy(filter) {
         var keyIdx = validKeyWords.indexOf(filter);
         var word = validKeyWords[keyIdx];
 
-        var checkIfExist = gKewordSearchCountMap.findIndex(function(obj) {
+        var checkIfExist = gKeywordSearchCountMap.findIndex(function(obj) {
             return obj.key === word;
         })
         if (checkIfExist == -1) {
-            gKewordSearchCountMap.push({
+            gKeywordSearchCountMap.push({
                 key: word,
                 count: 1
             });
-        } else gKewordSearchCountMap[checkIfExist].count += 1;
+        } else if (gKeywordSearchCountMap[checkIfExist].count <= 80) {
+            gKeywordSearchCountMap[checkIfExist].count += 1;
+        }
     }
     _saveKeyWordsToStorage()
     renderImgs();
 }
 
+function toggleMoreKeysOpen() {
+    isMoreKeysOpen = !isMoreKeysOpen;
+    var elMore = document.querySelector('.keywords-query');
+    var elBtn = document.querySelector('.toggle-btn');
+    if (isMoreKeysOpen) {
+        elMore.style.height = "150px"
+        elBtn.innerText = '▽'
+    } else {
+        elMore.style.height = "350px";
+        elBtn.innerText = '△'
+    }
+}
+
+function toggleModal() {
+    if (elMemeModal.classList.contains('open')) {
+        elMemeModal.classList.replace('open', 'close');
+        document.querySelector('.upload').disabled = "";
+        gUploadedImgSrc = '';
+        gCurrUrl = ''
+    } else {
+        elMemeModal.classList.replace('close', 'open');
+        document.querySelector('.upload').disabled = "true";
+    }
+    isMoreKeysOpen = false;
+    toggleMoreKeysOpen()
+    displayText()
+    renderMemes()
+}
+
 function _saveKeyWordsToStorage() {
-    saveToStorage(STORAGE_KEYWORDS, gKewordSearchCountMap)
+    saveToStorage(STORAGE_KEYWORDS, gKeywordSearchCountMap)
 }

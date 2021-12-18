@@ -15,8 +15,8 @@
         <div class="header-logo">MEME's <span>generator</span></div>
         <div class="header-navbar">
             <ul>
-                <li onclick="onInit()"><a href="#">Gallery</a></li>
-                <li onclick="renderSaved()"><a href="#">Memes</a></li>
+                <li class="gallery-botton" onclick="onInit()"><a href="#">Gallery</a></li>
+                <li class="saved-botton" onclick="renderSaved()"><a href="#">Memes</a></li>
                 <li><a href="#">About</a></li>
             </ul>
         </div>
@@ -78,13 +78,7 @@
                     <button onclick="onAddLine()"><img src="img/icons/more.png " alt=" "></button>
                     <button onclick="onRemoveLine() "><img src="img/icons/remove.png " alt=" "></button>
                 </div>
-                <div class="upload">
-                    <button id="upload-photo" onclick="uploadPhotoFromComputer()"><img
-                            src="img/icons/upload-document.png" alt=""></button>
-                </div>
                 <div class="text-settings img-setup ">
-                    <!-- <button class="arrow" onclick="textLineUp() "><img src="img/icons/up-arrow.png" alt=" "></button> -->
-                    <!-- <button class="arrow" onclick="textLineDown() "><img src="img/icons/down-arrow.png" alt=" "></button> -->
                     <button onclick="fontSizeUp() "><img src="img/icons/size-up.png " alt=" "></button>
                     <button onclick="fontSizeDown() "><img src="img/icons/size-down.png " alt=" "></button>
                     <button onclick="textAlignLeft() "><img src="img/icons/left-align.png " alt=" "></button>
@@ -115,12 +109,33 @@
                         <li onclick=onAddSticker(this)>🍩</li>
                         <li onclick=onAddSticker(this)>👓</li>
                         <li onclick=onAddSticker(this)>👑</li>
+                        <li onclick=onAddSticker(this)>♥️</li>
+                        <li onclick=onAddSticker(this)>💭</li>
+                        <li onclick=onAddSticker(this)>🎀</li>
+                        <li onclick=onAddSticker(this)>🎁</li>
+                        <li onclick=onAddSticker(this)>💣</li>
+                        <li onclick=onAddSticker(this)>💰</li>
+                        <li onclick=onAddSticker(this)>⛱</li>
+                        <li onclick=onAddSticker(this)>🎲</li>
+                        <li onclick=onAddSticker(this)>🎧</li>
+                        <li onclick=onAddSticker(this)>🎗</li>
+                        <li onclick=onAddSticker(this)>⚽️</li>
+                        <li onclick=onAddSticker(this)>🏀</li>
+                        <li onclick=onAddSticker(this)>🍿</li>
+                        <li onclick=onAddSticker(this)>🍭</li>
+                        <li onclick=onAddSticker(this)>🍦</li>
+                        <li onclick=onAddSticker(this)>🍏</li>
+                        <li onclick=onAddSticker(this)>❄️</li>
+                        <li onclick=onAddSticker(this)>☀️</li>
+                        <li onclick=onAddSticker(this)>🔥</li>
+                        <li onclick=onAddSticker(this)>🌹</li>
+                        <li onclick=onAddSticker(this)>🍄</li>
                     </ul>
                 </div>
+                <!-- <img src="img/icons/share-meme.png" alt=""> -->
                 <div class="features">
                     <a href="#" class="btn" onclick="downloadMeme(this)" download="my-img.png"><img src="img/icons/download.png"></a>
-                    <a href="#" class="btn" onclick="uploadImg()"><img src="img/icons/share-meme.png" alt="">Share on facebook
-                    </a>
+                    <a href="#" class="btn share-facebook" onclick="uploadImg()"><span>Share on facebook</span></a>
                     <div class="share-container" onclick="uploadImg()">
 
                     </div>
@@ -151,7 +166,6 @@
     <script src="js/gallery-controller.js"></script>
     <script src="js/canvas-controller.js"></script>
     <script src="js/saved-controller.js"></script>
-
 </body>
 
 </html>

@@ -21,13 +21,15 @@ function renderSaved() {
         var strHTMLs = '';
         gSavedImg.forEach(function(img) {
             return strHTMLs += `
-             <div class="meme" id="${img.id}" onclick="renderSavedMeme(this.id)">
-             <img src="${img.url}">
-             </div>`
+            <div class="meme" id="${img.id}" onclick="renderSavedMeme(this.id)">
+            <img src="${img.url}">
+            </div>`
         })
     }
     var elImgs = document.querySelector('.memes-wrapper');
     elImgs.innerHTML = strHTMLs;
+    document.querySelector('.filter-by').classList.add('hide-filter');
+    switchFocus('memes')
 }
 
 function renderSavedMeme(memeId) {

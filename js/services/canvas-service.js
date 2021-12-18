@@ -11,7 +11,7 @@ function renderMemes() {
         selectedLineIdx: 0,
         lines: [{
             txt: '',
-            size: 40,
+            size: 35,
             align: 'left',
             color: 'white',
             strokeColor: 'black',
@@ -85,22 +85,6 @@ function removeLine() {
     }
     gMeme.lines[currLineIdx].isFocused = false;
 }
-
-// function textLineUp() {
-//     var elFocus = gMeme.lines.find(function(line) {
-//         return line.isFocused === true;
-//     })
-//     elFocus.movedLine -= 10;
-//     renderCanvas();
-// }
-
-// function textLineDown() {
-//     var elFocus = gMeme.lines.find(function(line) {
-//         return line.isFocused === true;
-//     })
-//     elFocus.movedLine += 10;
-//     renderCanvas();
-// }
 
 function fontSizeUp() {
     gMeme.lines[currLineIdx].size += 2;
