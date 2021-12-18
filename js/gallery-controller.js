@@ -5,13 +5,13 @@ var elSaved = document.querySelector('.saved-botton');
 var elFilter = document.querySelector('.filter-by');
 
 function onInit() {
+    switchFocus('gallery');
     renderImgs()
     renderMemes()
     renderCanvas()
     renderKeyWords()
     isMoreKeysOpen = true;
     if (gUploadedImgSrc) toggleModal();
-    switchFocus('gallery');
 }
 
 function renderImgs() {
