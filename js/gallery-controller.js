@@ -1,5 +1,8 @@
 var isMoreKeysOpen;
 var elMemeModal = document.querySelector('.meme-generator');
+var elGallery = document.querySelector('.gallery-botton');
+var elSaved = document.querySelector('.saved-botton');
+var elFilter = document.querySelector('.filter-by');
 
 function onInit() {
     renderImgs()
@@ -8,15 +11,16 @@ function onInit() {
     renderKeyWords()
     isMoreKeysOpen = true;
     if (gUploadedImgSrc) toggleModal();
-    document.querySelector('.filter-by').classList.remove('hide-filter');
     switchFocus('gallery');
 }
 
 function renderImgs() {
-    var strHTMLs = `<div class="meme">
-    <input type="file" class="upload">
-    <img id="load-image" src="img/icons/upload.png" width="500" height="500">
-    </div>`;
+    if (elGallery.classList.contains('active')) {
+        var strHTMLs = `<div class="meme">
+                <input type="file" class="upload">
+                <img id="load-image" src="img/icons/upload.png" width="500" height="500">
+                </div>`;
+    } else var strHTMLs = '';
     var filteredImg = gImgs.filter(function(img) {
         return img.keywords.find(function(keyword) {
             return keyword.includes(gFilterKeyword)
@@ -63,10 +67,12 @@ function displayText() {
 
 function switchFocus(tab) {
     if (tab === 'gallery') {
-        document.querySelector('.gallery-botton').classList.add('active');
-        document.querySelector('.saved-botton').classList.remove('active');
+        elGallery.classList.add('active');
+        elSaved.classList.remove('active');
+        elFilter.classList.remove('hide-filter');
     } else {
-        document.querySelector('.gallery-botton').classList.remove('active')
-        document.querySelector('.saved-botton').classList.add('active');
+        elGallery.classList.remove('active')
+        elSaved.classList.add('active');
+        elFilter.classList.add('hide-filter');
     }
 }

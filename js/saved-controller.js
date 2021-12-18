@@ -16,7 +16,7 @@ function renderSaved() {
     if (elMemeModal.classList.contains('open')) toggleModal();
     gSavedImg = loadFromStorage(STORAGE_KEY)
     if (!gSavedImg || gSavedImg.length === 0) {
-        strHTMLs += '<h2 style="text-align: center; box-shadow: 4px 4px 10px 2px; border: 1px solid black;">When you will save a meme - it will appear here.</h2>'
+        var strHTMLs = '<h2 style="text-align: center; box-shadow: 4px 4px 10px 2px; border: 1px solid black;">When you will save a meme - it will appear here.</h2>'
     } else {
         var strHTMLs = '';
         gSavedImg.forEach(function(img) {
@@ -28,8 +28,7 @@ function renderSaved() {
     }
     var elImgs = document.querySelector('.memes-wrapper');
     elImgs.innerHTML = strHTMLs;
-    document.querySelector('.filter-by').classList.add('hide-filter');
-    switchFocus('memes')
+    switchFocus('memes');
 }
 
 function renderSavedMeme(memeId) {

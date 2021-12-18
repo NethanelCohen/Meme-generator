@@ -54,12 +54,13 @@ function drawImg() {
     var img = new Image();
     img.src = gCurrUrl;
     gCurrImg = img;
+    var size = resizePicture(img);
     if (gUploadedImgSrc) {
         img.onload = function() {
-            gCtx.drawImage(img, 0, 0, gCanvas.width, gCanvas.height);
+            gCtx.drawImage(img, 0, 0, size.x, size.y);
             gUploadedImgSrc = '';
         }
-    } else gCtx.drawImage(img, 0, 0, gCanvas.width, gCanvas.height);
+    } else gCtx.drawImage(img, 0, 0, size.x, size.y);
 }
 
 function drawText() {
@@ -186,4 +187,30 @@ function getEvPos(ev) {
         }
     }
     return pos;
+}
+
+// function scaleToFit(img) {
+//     var scale = Math.min(gCanvas.width / img.width, gCanvas.height / img.height);
+//     var x = (gCanvas.width / 2) - (img.width / 2) * scale;
+//     var y = (gCanvas.height / 2) - (img.height / 2) * scale;
+//     return (img, x, y, img.width * scale, img.height * scale);
+// }
+
+function resizePicture(img) {
+    var width = 0;
+    var height = 0;
+    var size;
+
+    if (img.width > img.height) {
+        width = gCanvas.width;
+        height = (gCanvas.height * img.width) / img.width;
+    } else if (img.height > img.width) {
+        width = (gCanvas.width * img.width) / img.height;
+        height = gCanvas.height;
+    } else {
+        width = gCanvas.width;
+        height = gCanvas.height
+    }
+    size = { x: width, y: height };
+    return size;
 }

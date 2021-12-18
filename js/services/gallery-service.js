@@ -107,6 +107,16 @@ var gImgs = [{
         id: _makeId(),
         url: 'img/18.jpg',
         keywords: ['kids', 'movie', 'cartoon', 'all']
+    },
+    {
+        id: _makeId(),
+        url: 'img/19.jpg',
+        keywords: ['woman', 'inspire', 'all']
+    },
+    {
+        id: _makeId(),
+        url: 'img/20.jpg',
+        keywords: ['dog', 'cute', 'all']
     }
 ];
 
@@ -124,7 +134,7 @@ function renderKeyWords() {
     gKeywordSearchCountMap.forEach(function(obj) {
         console.log(obj);
         return strHTMLs +=
-            `<li id=${obj.key} onclick="filterGalleryBy(this.id)" style="font-size: ${obj.count+30}px; color: ${getRandomColor()}; cursor: pointer; text-align: center">${obj.key} </li>`
+            `<li id=${obj.key} onclick="filterGalleryBy(this.id)" style="font-size: ${obj.count+20}px; color: ${getRandomColor()}; cursor: pointer; text-align: center">${obj.key} </li>`
     });
     strHTMLs += '</li>';
     var elKeywords = document.querySelector('.keywords-query');
