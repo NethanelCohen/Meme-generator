@@ -28,7 +28,6 @@ function renderSaved() {
     }
     var elImgs = document.querySelector('.memes-wrapper');
     elImgs.innerHTML = strHTMLs;
-    switchFocus('memes');
 }
 
 function renderSavedMeme(memeId) {

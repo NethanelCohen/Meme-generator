@@ -169,13 +169,13 @@ function filterGalleryBy(filter) {
 
 function toggleMoreKeysOpen() {
     isMoreKeysOpen = !isMoreKeysOpen;
-    var elMore = document.querySelector('.keywords-query');
+    var elMoreKeys = document.querySelector('.keywords-query');
     var elBtn = document.querySelector('.toggle-btn');
     if (isMoreKeysOpen) {
-        elMore.style.height = "150px"
+        elMoreKeys.style.height = "150px"
         elBtn.innerText = '▽'
     } else {
-        elMore.style.height = "350px";
+        elMoreKeys.style.height = "350px";
         elBtn.innerText = '△'
     }
 }

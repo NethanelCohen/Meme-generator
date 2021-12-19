@@ -5,13 +5,25 @@ var elSaved = document.querySelector('.saved-botton');
 var elFilter = document.querySelector('.filter-by');
 
 function onInit() {
-    switchFocus('gallery');
     renderImgs()
     renderMemes()
     renderCanvas()
     renderKeyWords()
-    isMoreKeysOpen = true;
+}
+
+function onGalleryClicked() {
+    switchFocus('gallery');
+    onInit();
+    displayNavbar()
     if (gUploadedImgSrc) toggleModal();
+    isMoreKeysOpen = true;
+
+}
+
+function onSavedClicked() {
+    switchFocus('memes');
+    displayNavbar();
+    renderSaved();
 }
 
 function renderImgs() {
@@ -38,7 +50,6 @@ function renderImgs() {
 }
 
 function renderMemeGen(meme) {
-    // debugger
     if (gUploadedImgSrc) {
         gCurrUrl = gUploadedImgSrc.src
         renderCanvas();
@@ -51,6 +62,8 @@ function renderMemeGen(meme) {
         renderCanvas();
         toggleModal();
     }
+    var elMemeGen = document.querySelector('.meme-generator');
+    elMemeGen.scrollIntoView({ behavior: 'smooth', block: 'center', inline: 'nearest' });
 }
 
 function getMemeById(memeId) {
@@ -74,5 +87,18 @@ function switchFocus(tab) {
         elGallery.classList.remove('active')
         elSaved.classList.add('active');
         elFilter.classList.add('hide-filter');
+    }
+}
+
+function displayNavbar() {
+    var size = window.innerWidth;
+    if (size > 768) return
+    var elBodyBGC = document.querySelector('.display-homescreen');
+    if (elBodyBGC.classList.contains('close')) {
+        document.body.classList.add('navbar-open');
+        elBodyBGC.classList.remove('disabled', 'close');
+    } else {
+        document.body.classList.remove('navbar-open');
+        elBodyBGC.classList.add('disabled', 'close');
     }
 }

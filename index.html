@@ -11,16 +11,20 @@
 
 <body onload="onInit()">
 
+    <div class="display-homescreen disabled close" onClick="displayNavbar()"></div>
+    <div class="hamburger" onclick="displayNavbar()">☰</div>
+
     <header class="main-layout">
         <div class="header-logo">MEME's <span>generator</span></div>
         <div class="header-navbar">
             <ul>
-                <li class="gallery-botton active" onclick="onInit()"><a href="#">Gallery</a></li>
-                <li class="saved-botton" onclick="renderSaved()"><a href="#">Memes</a></li>
+                <li class="gallery-botton active" onclick="onGalleryClicked()"><a href="#">Gallery</a></li>
+                <li class="saved-botton" onclick="onSavedClicked()"><a href="#">Memes</a></li>
                 <li><a href="#">About</a></li>
             </ul>
         </div>
     </header>
+
 
     <div class="filter-by">
         <label for="topic-meme">Filter by keyword: <br></label>
@@ -64,8 +68,8 @@
     </div>
 
     <div class="meme-generator main-layout-generator close">
-        <button class="toggle-modal" onclick="toggleModal()">⌘</button>
-        <h2>Edit your own meme</h2>
+        <button class="toggle-modal" onclick="toggleModal()">✘</button>
+        <h2>Design your meme</h2>
         <div class="meme-inner">
             <div class="canvas-container">
                 <canvas id="meme-canvas" width="500px" height="500px" style="background-color: #ffecec; cursor: crosshair; border: 1px solid black; border-radius: 10px;">
@@ -88,12 +92,12 @@
                 <div class="font-settings ">
                     <select for name="font-family " id="family" onchange="fontFamily(this.value)">
                         <option value="impact">Impact</option>
-                        <option value="arial">Arial</option>
-                        <option value="calibri">Calibri</option>
-                        <option value="courier">Courier</option>
-                        <option value="italic">Italic</option>
-                        <option value="serif">Serif</option>
-                        <option value="comic">Comic</option>
+                        <option value="Arial">Arial</option>
+                        <option value="Calibri">Calibri</option>
+                        <option value="Courier">Courier</option>
+                        <option value="Italic">Italic</option>
+                        <option value="Serif">Serif</option>
+                        <option value="Comic">Comic</option>
                     </select>
                     <input type="color" id="font-color" onchange="fontStrokeColor(this.value)">
                     <button><img src="img/icons/stroke-color.png"></button>

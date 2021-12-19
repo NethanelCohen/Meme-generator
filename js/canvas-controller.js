@@ -104,6 +104,7 @@ function drawText() {
             line.position.height = 50 + line.size / 2;
             line.position.basicPos = { x: 50 + line.position.x, y: 210 + line.position.y };
         }
+        console.log(gMeme.lines);
         idx++;
     })
 }
@@ -143,6 +144,11 @@ function onMove(ev) {
     ev.preventDefault()
     if (!isDown) return
     var currMovedPos = getEvPos(ev);
+    console.log(currMovedPos.x + ',' + currMovedPos.y);
+    if (currMovedPos.x >= gCanvas.width - 5 ||
+        currMovedPos.x <= 5 ||
+        currMovedPos.y >= gCanvas.height - 5 ||
+        currMovedPos.y <= 5) return isDown = false;
     movedAxisX = currMovedPos.x - currPosDown.x;
     gMeme.lines[currGrabbedElement].position.x += movedAxisX;
     movedAxisY = currMovedPos.y - currPosDown.y;
@@ -161,10 +167,10 @@ function onUp() {
 
 function grabLineIdx(ev) {
     var idx = gMeme.lines.findIndex(function(line) {
-        return (ev.x > line.position.basicPos.x &&
-            ev.x < line.position.width + line.position.basicPos.x &&
-            ev.y > line.position.basicPos.y &&
-            ev.y < line.position.height + line.position.basicPos.y);
+        return (ev.x > line.position.basicPos.x - 10 &&
+            ev.x < line.position.width + line.position.basicPos.x + 10 &&
+            ev.y > line.position.basicPos.y - 30 &&
+            ev.y < line.position.height + line.position.basicPos.y + 30);
     })
     console.log(idx);
     return idx;
@@ -189,13 +195,6 @@ function getEvPos(ev) {
     return pos;
 }
 
-// function scaleToFit(img) {
-//     var scale = Math.min(gCanvas.width / img.width, gCanvas.height / img.height);
-//     var x = (gCanvas.width / 2) - (img.width / 2) * scale;
-//     var y = (gCanvas.height / 2) - (img.height / 2) * scale;
-//     return (img, x, y, img.width * scale, img.height * scale);
-// }
-
 function resizePicture(img) {
     var width = 0;
     var height = 0;
@@ -214,3 +213,11 @@ function resizePicture(img) {
     size = { x: width, y: height };
     return size;
 }
+
+
+// function scaleToFit(img) {
+//     var scale = Math.min(gCanvas.width / img.width, gCanvas.height / img.height);
+//     var x = (gCanvas.width / 2) - (img.width / 2) * scale;
+//     var y = (gCanvas.height / 2) - (img.height / 2) * scale;
+//     return (img, x, y, img.width * scale, img.height * scale);
+// }
